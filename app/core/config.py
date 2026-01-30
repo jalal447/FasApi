@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8  # 8 days
-    
+#hii
     POSTGRES_SERVER: str="localhost"
     POSTGRES_USER: str="postgres"
     POSTGRES_PASSWORD: str="admin"
