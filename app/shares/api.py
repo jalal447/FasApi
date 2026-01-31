@@ -17,7 +17,7 @@ async def share_document(
     share_in: schemas.DocumentShareCreate,
     current_user: User = Depends(dependencies.get_current_user)
 ) -> Any:
-    # Verify ownership
+
     document = await DocumentService.get(db, id=share_in.document_id)
     if not document:
         raise HTTPException(status_code=404, detail="Document not found")
@@ -25,7 +25,7 @@ async def share_document(
     if document.owner_id != current_user.id:
         raise HTTPException(status_code=403, detail="Only owners can share documents")
         
-    # Check if already shared
+
     existing = await service.ShareService.get_existing(
         db, document_id=share_in.document_id, user_id=share_in.user_id
     )

@@ -16,6 +16,6 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
 
-    # Relationships
+
     documents: Mapped[List["Document"]] = relationship("Document", back_populates="owner", cascade="all, delete-orphan")
     shares_received: Mapped[List["DocumentShare"]] = relationship("DocumentShare", back_populates="user", cascade="all, delete-orphan")

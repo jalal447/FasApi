@@ -12,9 +12,8 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         request_id = str(uuid.uuid4())
         start_time = time.time()
         
-        # Add request ID to headers for downstream use if needed
-        # request.state.request_id = request_id
-        
+
+
         response = await call_next(request)
         
         duration = time.time() - start_time

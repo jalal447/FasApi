@@ -27,14 +27,14 @@ async def test_share_document(client: AsyncClient):
     )
     doc_id = create_res.json()["id"]
     
-    # Get recipient user ID
+
     recipient_res = await client.get(
         f"{settings.API_V1_STR}/me",
         headers={"Authorization": f"Bearer {token_recipient}"}
     )
     recipient_id = recipient_res.json()["id"]
     
-    # 2. Owner shares document (READ only)
+
     share_res = await client.post(
         f"{settings.API_V1_STR}/shares/",
         json={
@@ -46,7 +46,7 @@ async def test_share_document(client: AsyncClient):
     )
     assert share_res.status_code == 200
     
-    # 3. Recipient views document
+
     view_res = await client.get(
         f"{settings.API_V1_STR}/documents/{doc_id}",
         headers={"Authorization": f"Bearer {token_recipient}"}
@@ -54,7 +54,7 @@ async def test_share_document(client: AsyncClient):
     assert view_res.status_code == 200
     assert view_res.json()["title"] == "Shared Doc"
     
-    # 4. Recipient tries to update (should fail)
+
     update_res = await client.put(
         f"{settings.API_V1_STR}/documents/{doc_id}",
         json={"title": "Hacked Title"},
@@ -80,7 +80,7 @@ async def test_write_permission(client: AsyncClient):
     )
     recipient_id = recipient_res.json()["id"]
     
-    # Share with WRITE permission
+
     await client.post(
         f"{settings.API_V1_STR}/shares/",
         json={
@@ -91,7 +91,7 @@ async def test_write_permission(client: AsyncClient):
         headers={"Authorization": f"Bearer {token_owner}"}
     )
     
-    # Recipient updates document
+
     update_res = await client.put(
         f"{settings.API_V1_STR}/documents/{doc_id}",
         json={"title": "Updated by Recipient"},

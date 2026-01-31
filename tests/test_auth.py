@@ -15,13 +15,13 @@ async def test_create_user(client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_login(client: AsyncClient):
-    # First create user
+
     await client.post(
         f"{settings.API_V1_STR}/users",
         json={"email": "login@example.com", "password": "password", "full_name": "Login User"},
     )
     
-    # Login
+
     response = await client.post(
         f"{settings.API_V1_STR}/login/access-token",
         data={"username": "login@example.com", "password": "password"},
@@ -33,7 +33,7 @@ async def test_login(client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_read_user_me(client: AsyncClient):
-    # Create and login
+
     await client.post(
         f"{settings.API_V1_STR}/users",
         json={"email": "me@example.com", "password": "password", "full_name": "Me User"},

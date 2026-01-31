@@ -4,12 +4,12 @@ from app.core.config import settings
 
 @pytest.fixture
 async def auth_header(client: AsyncClient):
-    # Create user
+
     await client.post(
         f"{settings.API_V1_STR}/users",
         json={"email": "doc@example.com", "password": "password", "full_name": "Doc User"},
     )
-    # Login
+
     login_res = await client.post(
         f"{settings.API_V1_STR}/login/access-token",
         data={"username": "doc@example.com", "password": "password"},
@@ -36,7 +36,7 @@ async def test_create_document(client: AsyncClient, auth_header: dict):
 
 @pytest.mark.asyncio
 async def test_get_document(client: AsyncClient, auth_header: dict):
-    # Create first
+
     create_res = await client.post(
         f"{settings.API_V1_STR}/documents/",
         json={"title": "Get Test", "s3_url": "url", "tags": []},
@@ -100,7 +100,7 @@ async def test_delete_document(client: AsyncClient, auth_header: dict):
     )
     assert response.status_code == 200
     
-    # Verify deleted
+
     get_res = await client.get(
         f"{settings.API_V1_STR}/documents/{doc_id}",
         headers=auth_header

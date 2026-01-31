@@ -7,7 +7,7 @@ from app.main import app
 from app.db.session import Base, get_db
 from app.core.config import settings
 
-# Test database
+
 SQLALCHEMY_DATABASE_URL = settings.async_database_url + "_test"
 
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL)

@@ -18,6 +18,6 @@ class DocumentShare(Base):
     permission: Mapped[PermissionType] = mapped_column(String, nullable=False, default=PermissionType.READ)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
-    # Relationships
+
     document: Mapped["Document"] = relationship("Document", back_populates="shares")
     user: Mapped["User"] = relationship("User", back_populates="shares_received")
